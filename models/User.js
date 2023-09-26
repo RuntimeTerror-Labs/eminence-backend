@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  LastName: {
+  lastName: {
     type: String,
     required: true,
   },
@@ -23,6 +23,14 @@ const UserSchema = new mongoose.Schema({
   },
   contacts: {
     type: Array,
+    required: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now(),
+  },
+  cardColor: {
+    type: String,
     required: true,
   },
 });
