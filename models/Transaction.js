@@ -1,16 +1,17 @@
 const mongoose = require("mongoose");
 
 const TransactionSchema = new mongoose.Schema({
-  pubkey: {
-    type: String,
-    required: true,
-  },
   recipient: {
     type: String,
   },
-  amount: {
+  sender: {
+    type: String,
+  },
+  sentAmount: {
     type: Number,
-    required: true,
+  },
+  receivedAmount: {
+    type: Number,
   },
   date: {
     type: Date,
@@ -31,6 +32,9 @@ const TransactionSchema = new mongoose.Schema({
   isVoucher: {
     type: Boolean,
     required: true,
+  },
+  swappedAmount: {
+    type: Number,
   },
 });
 

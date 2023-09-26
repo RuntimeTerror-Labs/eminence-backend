@@ -14,6 +14,9 @@ app.use(cors());
 
 app.use("/api/ably", ablyRoute);
 app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/user", require("./routes/api/user"));
+app.use("/api/voucher", require("./routes/api/voucher"));
+app.use("/api/transaction", require("./routes/api/transaction"));
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
