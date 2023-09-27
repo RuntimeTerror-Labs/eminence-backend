@@ -4,10 +4,12 @@ const auth = require("../../middleware/auth");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
-const User = require("../../models/User");
 const Transaction = require("../../models/Transaction");
 
-router.post("/create/send", auth, async (req, res) => {
+//Route: POST api/transaction/create
+//Description: Create transaction
+//Access: Private
+router.post("/create", auth, async (req, res) => {
   const pubkey = req.pubkey;
 
   // Check for pubkey
@@ -74,6 +76,9 @@ router.post("/create/send", auth, async (req, res) => {
   }
 });
 
+//Route: GET api/transaction/get
+//Description: Get transactions
+//Access: Private
 router.get("/get", auth, async (req, res) => {
   const pubkey = req.pubkey;
 
@@ -94,6 +99,9 @@ router.get("/get", auth, async (req, res) => {
   }
 });
 
+//Route: GET api/transaction/get/:id
+//Description: Get transaction by txId
+//Access: Public
 router.get("/get/:id", async (req, res) => {
   const txId = req.params.id;
 
