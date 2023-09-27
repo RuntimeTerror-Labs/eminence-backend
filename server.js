@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const connectDB = require("./config/db");
 
 // const ably = require('./utils/ably');
 const ablyRoute = require("./routes/api/ably");
@@ -11,6 +12,8 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(cors());
+
+connectDB();
 
 app.use("/api/ably", ablyRoute);
 app.use("/api/auth", require("./routes/api/auth"));

@@ -7,6 +7,9 @@ const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
 const Voucher = require("../../models/Voucher");
 
+//Route: POST api/voucher/create
+//Description: Create voucher
+//Access: Private
 router.post("/create", auth, async (req, res) => {
   const pubkey = req.pubkey;
 
@@ -61,6 +64,9 @@ router.post("/create", auth, async (req, res) => {
   }
 });
 
+//Route: GET api/voucher/get
+//Description: Get vouchers
+//Access: Private
 router.get("/get", auth, async (req, res) => {
   const pubkey = req.pubkey;
 
@@ -79,6 +85,9 @@ router.get("/get", auth, async (req, res) => {
   }
 });
 
+//Route: GET api/voucher/get/:id
+//Description: Get voucher
+//Access: Public
 router.get("/get/:id", async (req, res) => {
   const voucherId = req.params.id;
 
@@ -101,6 +110,9 @@ router.get("/get/:id", async (req, res) => {
   }
 });
 
+//Route: POST api/voucher/claim/:id
+//Description: Claim voucher
+//Access: Private
 router.post("/claim/:id", auth, async (req, res) => {
   const pubkey = req.pubkey;
 

@@ -4,13 +4,11 @@ const auth = require("../../middleware/auth");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
+//Route: POST api/auth
+//Description: create Token
+//Access: Public
 router.post("/", async (req, res) => {
-  const { address, signature } = req.body;
-
-  // Check for address
-  if (!address) {
-    return res.status(400).json({ error: "Please provide an address" });
-  }
+  const { signature } = req.body;
 
   // Check for signature
   if (!signature) {
@@ -37,6 +35,9 @@ router.post("/", async (req, res) => {
   }
 });
 
+//Route: GET api/auth
+//Description: Get user by token
+//Access: Private
 router.get("/", auth, async (req, res) => {
   try {
     res.json({ msg: "Logged In" });

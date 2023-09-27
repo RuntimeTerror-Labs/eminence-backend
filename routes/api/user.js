@@ -6,6 +6,9 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../../models/User");
 
+//Route: POST api/user/create
+//Description: Create user
+//Access: Private
 router.post("/create", auth, async (req, res) => {
   const { chatPubkey, firstName, lastName, avatarId, cardColor } = req.body;
 
@@ -66,6 +69,9 @@ router.post("/create", auth, async (req, res) => {
   }
 });
 
+//Route: POST api/user/add/:pubkey
+//Description: Add contact
+//Access: Private
 router.post("/add/:pubkey", auth, async (req, res) => {
   const pubkey = req.pubkey;
 
@@ -103,6 +109,9 @@ router.post("/add/:pubkey", auth, async (req, res) => {
   }
 });
 
+//Route: POST api/user/remove/:pubkey
+//Description: Remove contact
+//Access: Private
 router.post("/remove/:pubkey", auth, async (req, res) => {
   const pubkey = req.pubkey;
 
@@ -142,6 +151,9 @@ router.post("/remove/:pubkey", auth, async (req, res) => {
   }
 });
 
+//Route: GET api/user/contacts
+//Description: Get contacts
+//Access: Private
 router.get("/contacts", auth, async (req, res) => {
   const pubkey = req.pubkey;
 
@@ -166,6 +178,9 @@ router.get("/contacts", auth, async (req, res) => {
   }
 });
 
+//Route: GET api/user/info/:pubkey
+//Description: Get user info
+//Access: Public
 router.get("/info/:pubkey", async (req, res) => {
   const pubkey = req.params.pubkey;
 
@@ -191,6 +206,9 @@ router.get("/info/:pubkey", async (req, res) => {
   }
 });
 
+//Route: GET api/user/info
+//Description: Get user info
+//Access: Private
 router.get("/info", auth, async (req, res) => {
   const pubkey = req.pubkey;
 
@@ -213,6 +231,9 @@ router.get("/info", auth, async (req, res) => {
   }
 });
 
+//Route: POST api/user/update
+//Description: Update user
+//Access: Private
 router.post("/update", auth, async (req, res) => {
   const pubkey = req.pubkey;
 
@@ -256,6 +277,9 @@ router.post("/update", auth, async (req, res) => {
   }
 });
 
+//Route: POST api/user/cardcolor
+//Description: Update cardColor
+//Access: Private
 router.post("/update/cardcolor", auth, async (req, res) => {
   const pubkey = req.pubkey;
 
