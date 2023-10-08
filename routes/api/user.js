@@ -178,34 +178,6 @@ router.get("/contacts", auth, async (req, res) => {
   }
 });
 
-//Route: GET api/user/info/:pubkey
-//Description: Get user info
-//Access: Public
-router.get("/info/:pubkey", async (req, res) => {
-  const pubkey = req.params.pubkey;
-
-  // Check for pubkey
-  if (!pubkey) {
-    return res.status(400).json({ error: "Please provide a pubkey" });
-  }
-
-  try {
-    const user = await User.findOne({ pubkey });
-
-    if (!user) {
-      return res.status(400).json({ error: "User does not exist" });
-    }
-
-    const { pubkey, chatPubkey, firstName, lastName, avatarId, cardColor } =
-      user;
-
-    res.json({ pubkey, chatPubkey, firstName, lastName, avatarId, cardColor });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server error");
-  }
-});
-
 //Route: GET api/user/info
 //Description: Get user info
 //Access: Private
@@ -225,6 +197,33 @@ router.get("/info", auth, async (req, res) => {
     }
 
     res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+//Route: GET api/user/info/:pubkey
+//Description: Get user info
+//Access: Public
+router.get("/info/:pubkey", async (req, res) => {
+  const pubkey = req.params.pubkey;
+
+  // Check for pubkey
+  if (!pubkey) {
+    return res.status(400).json({ error: "Please provide a pubkey" });
+  }
+
+  try {
+    const user = await User.findOne({ pubkey });
+
+    if (!user) {
+      return res.status(400).json({ error: "User does not exist" });
+    }
+
+    const { chatPubkey, firstName, lastName, avatarId, cardColor } = user;
+
+    res.json({ pubkey, chatPubkey, firstName, lastName, avatarId, cardColor });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
@@ -271,6 +270,8 @@ router.post("/update", auth, async (req, res) => {
     user.avatarId = avatarId;
 
     await user.save();
+
+    res.json(user);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
@@ -305,6 +306,8 @@ router.post("/update/cardcolor", auth, async (req, res) => {
     user.cardColor = cardColor;
 
     await user.save();
+
+    res.json(user);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");

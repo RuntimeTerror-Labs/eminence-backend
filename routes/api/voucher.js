@@ -121,7 +121,7 @@ router.post("/claim/:id", auth, async (req, res) => {
     return res.status(400).json({ error: "Please provide a pubkey" });
   }
 
-  const voucherId = req.params.voucherId;
+  const voucherId = req.params.id;
 
   // Check for voucherId
   if (!voucherId) {
