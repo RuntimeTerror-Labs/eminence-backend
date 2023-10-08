@@ -7,12 +7,6 @@ require('dotenv').config();
 
 const apiKey = process.env.ABLY_API_KEY;
 console.log(apiKey);
-// const [keyid, keySecret] = apiKey.split(':');
-
-// const expiresIn = 3600;
-// const capability = JSON.stringify({ '*': ['publish', 'subscribe'] });
-// const jwtOptions = { expiresIn, keyid };
-// console.log(jwtOptions)
 
 router.get('/auth', (req, res) => {
   console.log('Sucessfully connected to the server auth endpoint');
@@ -20,22 +14,6 @@ router.get('/auth', (req, res) => {
   // Check user is authorized to access this endpoint
 
   const clientId = req.query.id;
-
-  // const jwtPayload = {
-  //   'x-ably-capability': capability,
-  //   'x-ably-clientId': clientId,
-  // };
-
-  // jwt.sign(jwtPayload, keySecret, jwtOptions, (err, tokenId) => {
-  //   console.log('✓ JSON Web Token signed by auth server');
-
-  //   if (err) return console.error();
-
-  //   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-  //   res.setHeader('Content-Type', 'application/json');
-
-  //   res.send(JSON.stringify(tokenId));
-  // });
 
   try {
     const client = new Ably.Rest({
