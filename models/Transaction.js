@@ -6,16 +6,17 @@ const TransactionSchema = new mongoose.Schema({
   },
 
   sender: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
   },
 
-  sentAmount: {
+  amount: {
     type: Number,
+    required: true,
   },
 
-  receivedAmount: {
-    type: Number,
+  currency: {
+    type: String,
+    required: true,
   },
 
   date: {

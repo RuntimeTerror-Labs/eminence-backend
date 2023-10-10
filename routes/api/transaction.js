@@ -1,58 +1,58 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const auth = require("../../middleware/auth");
-require("dotenv").config();
-const jwt = require("jsonwebtoken");
+const auth = require('../../middleware/auth');
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
 
-const Transaction = require("../../models/Transaction");
+const Transaction = require('../../models/Transaction');
 
 //Route: POST api/transaction/create
 //Description: Create transaction
 //Access: Private
-router.post("/create", auth, async (req, res) => {
+router.post('/create', auth, async (req, res) => {
   const pubkey = req.pubkey;
 
   // Check for pubkey
   if (!pubkey) {
-    return res.status(400).json({ error: "Please provide a pubkey" });
+    return res.status(400).json({ error: 'Please provide a pubkey' });
   }
 
-  const { txId, recipient, amount, type, swappedAmount } = req.body;
+  const { txId, recipient, amount, type, swappedAmount, currency } = req.body;
 
   // Check for txId
   if (!txId) {
-    return res.status(400).json({ error: "Please provide a txId" });
+    return res.status(400).json({ error: 'Please provide a txId' });
   }
 
   // Check for amount
   if (!amount) {
-    return res.status(400).json({ error: "Please provide an amount" });
+    return res.status(400).json({ error: 'Please provide an amount' });
   }
 
   try {
     if (await Transaction.findOne({ txId })) {
-      return res.status(400).json({ error: "Transaction already exists" });
+      return res.status(400).json({ error: 'Transaction already exists' });
     }
 
     let isSwap = false;
     let isPrivate = false;
     let isVoucher = false;
 
-    if (type === "swap") {
+    if (type === 'swap') {
       isSwap = true;
 
       if (!swappedAmount) {
         return res
           .status(400)
-          .json({ error: "Please provide a swappedAmount" });
+          .json({ error: 'Please provide a swappedAmount' });
       }
     }
 
-    if (type === "private") {
+    if (type === 'private') {
       isPrivate = true;
     }
 
-    if (type === "voucher") {
+    if (type === 'voucher') {
       isVoucher = true;
     }
 
@@ -60,6 +60,7 @@ router.post("/create", auth, async (req, res) => {
       txId,
       sender: pubkey,
       recipient,
+      currency,
       amount,
       isSwap,
       isPrivate,
@@ -72,19 +73,19 @@ router.post("/create", auth, async (req, res) => {
     res.json(transaction);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server error");
+    res.status(500).send('Server error');
   }
 });
 
 //Route: GET api/transaction/get
 //Description: Get transactions
 //Access: Private
-router.get("/get", auth, async (req, res) => {
+router.get('/get', auth, async (req, res) => {
   const pubkey = req.pubkey;
 
   // Check for pubkey
   if (!pubkey) {
-    return res.status(400).json({ error: "Please provide a pubkey" });
+    return res.status(400).json({ error: 'Please provide a pubkey' });
   }
 
   try {
@@ -95,32 +96,32 @@ router.get("/get", auth, async (req, res) => {
     res.json(transactions);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server error");
+    res.status(500).send('Server error');
   }
 });
 
 //Route: GET api/transaction/get/:id
 //Description: Get transaction by txId
 //Access: Public
-router.get("/get/:id", async (req, res) => {
+router.get('/get/:id', async (req, res) => {
   const txId = req.params.id;
 
   // Check for txId
   if (!txId) {
-    return res.status(400).json({ error: "Please provide a txId" });
+    return res.status(400).json({ error: 'Please provide a txId' });
   }
 
   try {
     const transaction = await Transaction.findOne({ txId });
 
     if (!transaction) {
-      return res.status(400).json({ error: "Transaction does not exist" });
+      return res.status(400).json({ error: 'Transaction does not exist' });
     }
 
     res.json(transaction);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server error");
+    res.status(500).send('Server error');
   }
 });
 
