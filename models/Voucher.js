@@ -21,6 +21,10 @@ const VoucherSchema = new mongoose.Schema({
     required: true,
   },
 
+  message: {
+    type: String,
+  },
+
   isClaimed: {
     type: Boolean,
     required: true,
