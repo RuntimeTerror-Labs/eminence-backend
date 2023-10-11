@@ -18,6 +18,8 @@ app.use(express.json());
 connectDB();
 
 app.use("/api/ably", ablyRoute);
+app.use("/api/chat", require("./routes/api/chat"));
+app.use("/api/message", require("./routes/api/message"));
 app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/user", require("./routes/api/user"));
 app.use("/api/voucher", require("./routes/api/voucher"));
