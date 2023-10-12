@@ -2,6 +2,7 @@ const express = require('express');
 // const jwt = require('jsonwebtoken');
 const router = express.Router();
 const Ably = require('ably');
+const auth = require('../../middleware/auth');
 
 require('dotenv').config();
 
@@ -53,15 +54,15 @@ router.post('/message', async (req, res) => {
 
   const channel = client.channels.get(channelName);
 
-  const disallowedWords = ['nigga', 'nude', 'sex'];
+  // const disallowedWords = ['nigga', 'nude', 'sex'];
 
-  const containsDisallowedWord = disallowedWords.some((word) => {
-    return message.text.match(new RegExp(`\\b${word}\\b`));
-  });
+  // const containsDisallowedWord = disallowedWords.some((word) => {
+  //   return message.text.match(new RegExp(`\\b${word}\\b`));
+  // });
 
-  if (containsDisallowedWord) {
-    return res.status(403).send('Bad word');
-  }
+  // if (containsDisallowedWord) {
+  //   return res.status(403).send('Bad word');
+  // }
 
   const response = await channel.publish('update-from-server', message);
 

@@ -230,6 +230,39 @@ router.get('/info/:pubkey', async (req, res) => {
   }
 });
 
+//Route: GET api/user/info/:name
+//Description: Get user info
+//Access: Public
+router.get('/:name', auth, async (req, res) => {
+  const name = req.params.name;
+
+  // Check for name
+  if (!name) {
+    return res.status(400).json({ error: 'Please provide a name' });
+  }
+
+  try {
+    const users = await User.find(
+      {
+        $or: [
+          { firstName: { $regex: `^${name}`, $options: 'i' } },
+          { lastName: { $regex: `^${name}`, $options: 'i' } },
+        ],
+      },
+      { firstName: 1, lastName: 1, avatarId: 1, pubkey: 1, _id: 1 }
+    );
+
+    if (!users || users.length === 0) {
+      return res.status(400).json({ error: 'No users found' });
+    }
+
+    res.json(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 //Route: POST api/user/update
 //Description: Update user
 //Access: Private
