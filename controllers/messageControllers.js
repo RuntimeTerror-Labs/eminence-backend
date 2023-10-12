@@ -1,11 +1,11 @@
-const Message = require('../models/messageModel');
+const Message = require("../models/messageModel");
 
 const sendMessage = async (req, res) => {
   const { chatId, message, type } = req.body;
   const currentUser = req.pubkey;
 
   if (!chatId || !message) {
-    console.log('ChatId or message not sent with request');
+    console.log("ChatId or message not sent with request");
     return res.sendStatus(400);
   }
 
@@ -33,7 +33,7 @@ const fetchMessages = async (req, res) => {
   const { chatId } = req.params;
 
   if (!chatId) {
-    console.log('ChatId not sent with request');
+    console.log("ChatId not sent with request");
     return res.sendStatus(400);
   }
 
@@ -41,7 +41,7 @@ const fetchMessages = async (req, res) => {
     const messages = await Message.find({ chat: chatId });
 
     if (!messages) {
-      console.log('Chat not found');
+      console.log("Chat not found");
       return res.sendStatus(400);
     }
 
