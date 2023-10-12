@@ -2,8 +2,14 @@ const mongoose = require('mongoose');
 
 const MessageSchema = new mongoose.Schema(
   {
+    type: {
+      type: String,
+      enum: ['text', 'payment', 'confirm'],
+      default: 'text',
+    },
+
     sender: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: 'User',
     },
 

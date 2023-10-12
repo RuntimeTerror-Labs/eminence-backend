@@ -43,7 +43,6 @@ const accessChat = async (req, res) => {
     res.send(isChat[0]);
   } else {
     var chatData = {
-      chatName: 'sender',
       users: [currentUser, userId],
     };
 
