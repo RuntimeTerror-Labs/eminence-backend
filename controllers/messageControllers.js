@@ -2,7 +2,7 @@ const Message = require('../models/messageModel');
 
 const sendMessage = async (req, res) => {
   const { chatId, message, type } = req.body;
-  const currentUser = '6521136c79f90384bddff2e8';
+  const currentUser = req.pubkey;
 
   if (!chatId || !message) {
     console.log('ChatId or message not sent with request');

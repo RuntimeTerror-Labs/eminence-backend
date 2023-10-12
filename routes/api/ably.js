@@ -55,13 +55,13 @@ router.post('/message', async (req, res) => {
 
   const disallowedWords = ['nigga', 'nude', 'sex'];
 
-  const containsDisallowedWord = disallowedWords.some((word) => {
-    return message.text.match(new RegExp(`\\b${word}\\b`));
-  });
+  // const containsDisallowedWord = disallowedWords.some((word) => {
+  //   return message.text.match(new RegExp(`\\b${word}\\b`));
+  // });
 
-  if (containsDisallowedWord) {
-    return res.status(403).send('Bad word');
-  }
+  // if (containsDisallowedWord) {
+  //   return res.status(403).send('Bad word');
+  // }
 
   const response = await channel.publish('update-from-server', message);
 
