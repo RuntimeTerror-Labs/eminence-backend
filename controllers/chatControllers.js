@@ -1,28 +1,6 @@
 const Chat = require('../models/chatModel');
 const User = require('../models/User');
 
-// const accessChat = async (req, res) => {
-//   const { user1Id, user2Id } = req.body;
-
-//   // Check if chat already exists between the two users
-//   const existingChat = await Chat.findOne({
-//     users: { $all: ['65140fc3c5840b1ef086d439', '6521136c79f90384bddff2e8'] },
-//   });
-
-//   if (existingChat) {
-//     return res.status(200).json({ chat: existingChat });
-//   }
-
-//   // Create new chat between the two users
-//   const newChat = new Chat({
-//     users: ['65140fc3c5840b1ef086d439', '6521136c79f90384bddff2e8'],
-//   });
-
-//   await newChat.save();
-
-//   return res.status(201).json({ chat: newChat });
-// };
-
 const accessChat = async (req, res) => {
   const { userId } = req.body;
   const currentUser = req.pubkey;
@@ -73,4 +51,20 @@ const fetchChats = async (req, res) => {
   }
 };
 
-module.exports = { accessChat, fetchChats };
+const deleteChat = async (req, res) => {
+  const { chatId } = req.params;
+
+  try {
+    const chat = await Chat.findByIdAndDelete(chatId);
+
+    if (!chat) {
+      return res.status(404).json({ error: 'Chat not found' });
+    }
+
+    res.status(200).json({ message: 'Chat deleted successfully' });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = { accessChat, fetchChats, deleteChat };

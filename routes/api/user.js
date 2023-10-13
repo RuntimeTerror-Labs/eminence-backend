@@ -112,7 +112,7 @@ router.post('/add/:pubkey', auth, async (req, res) => {
 //Route: POST api/user/remove/:pubkey
 //Description: Remove contact
 //Access: Private
-router.post('/remove/:pubkey', auth, async (req, res) => {
+router.delete('/remove/:pubkey', auth, async (req, res) => {
   const pubkey = req.pubkey;
 
   // Check for pubkey
