@@ -41,10 +41,6 @@ module.exports = async (req, res, next) => {
 
     const user = await User.findOne({ pubkey: pubkey });
 
-    if (!user) {
-      return res.status(401).json({ error: 'User does not exist' });
-    }
-
     req.user = user;
 
     next();

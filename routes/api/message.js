@@ -5,9 +5,11 @@ const auth = require('../../middleware/auth');
 const {
   sendMessage,
   fetchMessages,
+  deleteMessages,
 } = require('../../controllers/messageControllers');
 
-router.route('/').post(auth, sendMessage);
 router.route('/:chatId').get(auth, fetchMessages);
+router.route('/').post(auth, sendMessage);
+router.route('/:chatId').delete(auth, deleteMessages);
 
 module.exports = router;

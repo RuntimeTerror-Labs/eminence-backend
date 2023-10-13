@@ -49,22 +49,14 @@ router.get('/logout', (req, res) => {
 
 router.post('/message', async (req, res) => {
   const body = req.body;
-  const client = new Ably.Rest(apiKey);
+  const client = new Ably.Realtime(apiKey);
   const { message, channelName } = body;
+
+  console.log(message, channelName);
 
   const channel = client.channels.get(channelName);
 
-  // const disallowedWords = ['nigga', 'nude', 'sex'];
-
-  // const containsDisallowedWord = disallowedWords.some((word) => {
-  //   return message.text.match(new RegExp(`\\b${word}\\b`));
-  // });
-
-  // if (containsDisallowedWord) {
-  //   return res.status(403).send('Bad word');
-  // }
-
-  const response = await channel.publish('update-from-server', message);
+  const response = channel.publish(channelName, message);
 
   return res.send(response);
 });
