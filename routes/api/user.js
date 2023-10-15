@@ -235,6 +235,7 @@ router.get('/info/:pubkey', async (req, res) => {
 //Access: Public
 router.get('/:name', auth, async (req, res) => {
   const name = req.params.name;
+  const pubkey = req.pubkey;
 
   // Check for name
   if (!name) {
@@ -256,7 +257,9 @@ router.get('/:name', auth, async (req, res) => {
       return res.status(400).json({ error: 'No users found' });
     }
 
-    res.json(users);
+    const filterUser = users.filter((user) => user.pubkey !== pubkey);
+
+    res.json(filterUser);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
