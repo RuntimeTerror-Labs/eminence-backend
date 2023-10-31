@@ -7,7 +7,6 @@ const auth = require('../../middleware/auth');
 require('dotenv').config();
 
 const apiKey = process.env.ABLY_API_KEY;
-console.log(apiKey);
 
 router.get('/auth', (req, res) => {
   console.log('Sucessfully connected to the server auth endpoint');
