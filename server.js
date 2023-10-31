@@ -55,25 +55,15 @@ const ablyGraph = () => {
   const channel1Day = realtime.channels.get('1d');
   const channel1Week = realtime.channels.get('1w');
 
-  channel1Min.subscribe(function (message) {
-    console.log();
-  });
+  channel1Min.subscribe(function (message) {});
 
-  channel15Min.subscribe(function (message) {
-    console.log();
-  });
+  channel15Min.subscribe(function (message) {});
 
-  channel1Hour.subscribe(function (message) {
-    console.log();
-  });
+  channel1Hour.subscribe(function (message) {});
 
-  channel1Day.subscribe(function (message) {
-    console.log();
-  });
+  channel1Day.subscribe(function (message) {});
 
-  channel1Week.subscribe(function (message) {
-    console.log();
-  });
+  channel1Week.subscribe(function (message) {});
 
   setTimeout(async () => {
     channel1Min.publish(
